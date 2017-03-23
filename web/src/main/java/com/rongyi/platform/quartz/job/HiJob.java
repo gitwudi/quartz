@@ -1,7 +1,5 @@
 package com.rongyi.platform.quartz.job;
 
-import java.util.Iterator;
-
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.Job;
 import org.quartz.JobDataMap;

@@ -1,5 +1,8 @@
 package com.rongyi.platform.quartz.biz.impl;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import org.quartz.CronScheduleBuilder;
 import org.quartz.CronTrigger;
 import org.quartz.JobBuilder;
@@ -10,6 +13,7 @@ import org.quartz.SchedulerException;
 import org.quartz.TriggerBuilder;
 import org.quartz.TriggerKey;
 import org.quartz.impl.StdSchedulerFactory;
+import org.quartz.impl.calendar.AnnualCalendar;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,16 +50,25 @@ public class JobBizImpl implements JobBiz {
 
 				JobDetail jobDetail = JobBuilder.newJob(clazz).withIdentity(qzJob.getName(), qzJob.getGroupName())
 						.build();
-
-				// jobDetail.getJobDataMap().put("haha", 666);// 启动定时器时传参
+				 jobDetail.getJobDataMap().put("haha", 666);// 启动定时器时传参
 
 				CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(qzJob.getCronExpression());
-
 				// trigger = TriggerBuilder.newTrigger().withIdentity(qzJob.getName(), qzJob.getGroupName())
 				// .withSchedule(scheduleBuilder).build();// 启动会立即执行
-				trigger = TriggerBuilder.newTrigger().withIdentity(qzJob.getName(), qzJob.getGroupName())
-						.withSchedule(scheduleBuilder.withMisfireHandlingInstructionDoNothing()).build();// 启动会在下次触发时执行
+				
+//				trigger = TriggerBuilder.newTrigger().withIdentity(qzJob.getName(), qzJob.getGroupName())
+//						.withSchedule(scheduleBuilder.withMisfireHandlingInstructionDoNothing()).build();// 启动会在下次触发时执行
+				
+				// 修改默认calendarName
+				trigger = TriggerBuilder.newTrigger().withIdentity(qzJob.getName(), qzJob.getGroupName()).modifiedByCalendar("testCal")
+						.withSchedule(scheduleBuilder.withMisfireHandlingInstructionDoNothing()).build();
 
+				// 今天不执行定时器
+				Calendar cal = Calendar.getInstance();
+				AnnualCalendar ac = new AnnualCalendar();
+				ac.setDayExcluded(cal, true);
+				scheduler.addCalendar("testCal", ac, true, true);
+				
 				scheduler.scheduleJob(jobDetail, trigger);
 
 				scheduler.start();
