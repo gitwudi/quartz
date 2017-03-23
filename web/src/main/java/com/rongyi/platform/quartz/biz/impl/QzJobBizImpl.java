@@ -74,11 +74,11 @@ public class QzJobBizImpl implements QzJobBiz {
 			throw new BizException("任务不存在");
 		}
 		this.updateStatus(qzJob.getId(), QzJobConst.STATUS_ENBALE);
-		
+
 		jobBiz.resume(qzJob);
 		log.info("==========恢复任务成功========   qzJob - {}", qzJob);
 	}
-	
+
 	private void updateStatus(Integer id, Integer status) {
 		QzJob qzJob = new QzJob();
 		qzJob.setId(id);

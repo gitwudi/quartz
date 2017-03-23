@@ -49,27 +49,27 @@
 	</bean>
 
 	<!-- 静态资源处理 -->
-<!-- 	<mvc:resources mapping="/js/**" location="/static/js/" /> -->
-<!-- 	<mvc:resources mapping="/css/**" location="/static/css/" /> -->
-<!-- 	<mvc:resources mapping="/img/**" location="/static/img/" /> -->
-<!-- 	<mvc:default-servlet-handler /> -->
+	<!-- <mvc:resources mapping="/js/**" location="/static/js/" /> -->
+	<!-- <mvc:resources mapping="/css/**" location="/static/css/" /> -->
+	<!-- <mvc:resources mapping="/img/**" location="/static/img/" /> -->
+	<!-- <mvc:default-servlet-handler /> -->
 
 	<!--配置拦截器, 多个拦截器,顺序执行 -->
-<!-- 	<mvc:interceptors> -->
-<!-- 		<mvc:interceptor> -->
-<!-- 			<mvc:mapping path="/**" /> -->
-<!-- 			<mvc:exclude-mapping path="/static/img/**" /> -->
-<!-- 			<mvc:exclude-mapping path="/static/js/**" /> -->
-<!-- 			<mvc:exclude-mapping path="/static/css/**" /> -->
-<!-- 			<bean class="com.md.homeParty.intercept.FrontVerInterceptor"></bean> -->
-<!-- 		</mvc:interceptor> -->
-<!-- 		<mvc:interceptor> -->
-<!-- 			<mvc:mapping path="/**" /> -->
-<!-- 			<mvc:exclude-mapping path="/*.ftl"/> -->
-<!-- 			<bean class="com.md.homeParty.intercept.AuthInterceptor"></bean> -->
-<!-- 		</mvc:interceptor> -->
-		<!-- 当设置多个拦截器时，先按顺序调用preHandle方法，然后逆序调用每个拦截器的postHandle和afterCompletion方法 -->
-<!-- 	</mvc:interceptors> -->
+	<!-- <mvc:interceptors> -->
+	<!-- <mvc:interceptor> -->
+	<!-- <mvc:mapping path="/**" /> -->
+	<!-- <mvc:exclude-mapping path="/static/img/**" /> -->
+	<!-- <mvc:exclude-mapping path="/static/js/**" /> -->
+	<!-- <mvc:exclude-mapping path="/static/css/**" /> -->
+	<!-- <bean class="com.md.homeParty.intercept.FrontVerInterceptor"></bean> -->
+	<!-- </mvc:interceptor> -->
+	<!-- <mvc:interceptor> -->
+	<!-- <mvc:mapping path="/**" /> -->
+	<!-- <mvc:exclude-mapping path="/*.ftl"/> -->
+	<!-- <bean class="com.md.homeParty.intercept.AuthInterceptor"></bean> -->
+	<!-- </mvc:interceptor> -->
+	<!-- 当设置多个拦截器时，先按顺序调用preHandle方法，然后逆序调用每个拦截器的postHandle和afterCompletion方法 -->
+	<!-- </mvc:interceptors> -->
 
 	<!-- freemarker配置 -->
 	<bean id="freemarkerConfig"
@@ -123,6 +123,7 @@
 		<!-- 内存中的最大值 -->
 		<property name="maxInMemorySize" value="40960" />
 	</bean>
-	
-	<bean id="loadJob" class="com.rongyi.platform.quartz.init.LoadJob" init-method="init"></bean>
+
+	<bean id="loadJob" class="com.rongyi.platform.quartz.init.LoadJob"
+		init-method="init"></bean>
 </beans>

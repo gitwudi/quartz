@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @DisallowConcurrentExecution
-public class RepeatJob implements Job{
+public class RepeatJob implements Job {
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 

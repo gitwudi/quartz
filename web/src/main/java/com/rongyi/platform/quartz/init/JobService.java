@@ -26,7 +26,7 @@ public class JobService {
 	private SchedulerFactoryBean schedulerFactoryBean;
 
 	/**
-	 * @Description 启动任务 
+	 * @Description 启动任务
 	 * @author wudi
 	 * @param qzJob
 	 */
@@ -46,7 +46,7 @@ public class JobService {
 				JobDetail jobDetail = JobBuilder.newJob(clazz).withIdentity(qzJob.getName(), qzJob.getGroupName())
 						.build();
 
-//				jobDetail.getJobDataMap().put("haha", 666);// 启动定时器时传参
+				// jobDetail.getJobDataMap().put("haha", 666);// 启动定时器时传参
 
 				CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(qzJob.getCronExpression());
 
@@ -68,7 +68,7 @@ public class JobService {
 	}
 
 	/**
-	 * @Description 暂停任务 
+	 * @Description 暂停任务
 	 * @author wudi
 	 */
 	public void pause(QzJob qzJob) {
@@ -80,13 +80,13 @@ public class JobService {
 			log.error("暂停任务异常", e);
 		}
 	}
-	
+
 	/**
 	 * @Description 删除任务
 	 * @author wudi
 	 * @param qzJob
 	 */
-	public void delete (QzJob qzJob) {
+	public void delete(QzJob qzJob) {
 		Scheduler scheduler = schedulerFactoryBean.getScheduler();
 		JobKey jobKey = JobKey.jobKey(qzJob.getName(), qzJob.getGroupName());
 		try {
@@ -95,5 +95,5 @@ public class JobService {
 			log.error("删除任务异常", e);
 		}
 	}
-	
+
 }

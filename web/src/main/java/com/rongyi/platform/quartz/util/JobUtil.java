@@ -1,7 +1,5 @@
 package com.rongyi.platform.quartz.util;
 
-import javax.annotation.PostConstruct;
-
 import org.quartz.CronScheduleBuilder;
 import org.quartz.CronTrigger;
 import org.quartz.JobBuilder;
@@ -13,7 +11,6 @@ import org.quartz.TriggerBuilder;
 import org.quartz.TriggerKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +21,7 @@ public class JobUtil {
 
 	public static Logger log = LoggerFactory.getLogger("com.rongyi.platform.quartz.util.JobUtil");
 
-//	@Autowired
+	// @Autowired
 	private static SchedulerFactoryBean schedulerFactoryBean;
 
 	/**
@@ -100,5 +97,5 @@ public class JobUtil {
 	public void setSchedulerFactoryBean(SchedulerFactoryBean schedulerFactoryBean) {
 		JobUtil.schedulerFactoryBean = schedulerFactoryBean;
 	}
-	
+
 }

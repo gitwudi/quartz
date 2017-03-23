@@ -26,7 +26,7 @@ public class JobBizImpl implements JobBiz {
 
 	@Autowired
 	private SchedulerFactoryBean schedulerFactoryBean;
-	
+
 	/**
 	 * @see com.rongyi.platform.quartz.biz.JobBiz#add(com.rongyi.platform.quartz.module.model.QzJob)
 	 */
@@ -34,7 +34,7 @@ public class JobBizImpl implements JobBiz {
 	public void add(QzJob qzJob) {
 		log.info("新增job - {}", qzJob);
 		try {
-//			Scheduler scheduler = schedulerFactoryBean.getScheduler();// 无需调用scheduler.start(),就能启动
+			// Scheduler scheduler = schedulerFactoryBean.getScheduler();// 无需调用scheduler.start(),就能启动
 			Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();// 需要调用scheduler.start()才能启动
 
 			TriggerKey triggerKey = TriggerKey.triggerKey(qzJob.getName(), qzJob.getGroupName());
@@ -57,7 +57,7 @@ public class JobBizImpl implements JobBiz {
 						.withSchedule(scheduleBuilder.withMisfireHandlingInstructionDoNothing()).build();// 启动会在下次触发时执行
 
 				scheduler.scheduleJob(jobDetail, trigger);
-				
+
 				scheduler.start();
 			} else {
 				CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(qzJob.getCronExpression());
