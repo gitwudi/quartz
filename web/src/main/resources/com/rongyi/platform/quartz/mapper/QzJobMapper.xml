@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rongyi.platform.quartz.mapper.QzJobMapper">
+	<resultMap id="BaseResultMap" type="com.rongyi.platform.quartz.module.model.QzJob">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="group_name" property="groupName" jdbcType="VARCHAR" />
+		<result column="trigger_name" property="triggerName" jdbcType="VARCHAR" />
+		<result column="trigger_group_name" property="triggerGroupName"
+			jdbcType="VARCHAR" />
+		<result column="class_name" property="className" jdbcType="VARCHAR" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="cron_expression" property="cronExpression"
+			jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="create_at" property="createAt" jdbcType="TIMESTAMP" />
+		<result column="update_at" property="updateAt" jdbcType="TIMESTAMP" />
+		<result column="create_by" property="createBy" jdbcType="INTEGER" />
+		<result column="update_by" property="updateBy" jdbcType="INTEGER" />
+		<result column="is_delete" property="isDelete" jdbcType="BIT" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, name, group_name, trigger_name, trigger_group_name, class_name,
+		description,
+		cron_expression, status, create_at, update_at, create_by, update_by, is_delete
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from qz_job
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from qz_job
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insertSelective" parameterType="com.rongyi.platform.quartz.module.model.QzJob">
+		insert into qz_job
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="groupName != null">
+				group_name,
+			</if>
+			<if test="triggerName != null">
+				trigger_name,
+			</if>
+			<if test="triggerGroupName != null">
+				trigger_group_name,
+			</if>
+			<if test="className != null">
+				class_name,
+			</if>
+			<if test="description != null">
+				description,
+			</if>
+			<if test="cronExpression != null">
+				cron_expression,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="createAt != null">
+				create_at,
+			</if>
+			<if test="updateAt != null">
+				update_at,
+			</if>
+			<if test="createBy != null">
+				create_by,
+			</if>
+			<if test="updateBy != null">
+				update_by,
+			</if>
+			<if test="isDelete != null">
+				is_delete,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="groupName != null">
+				#{groupName,jdbcType=VARCHAR},
+			</if>
+			<if test="triggerName != null">
+				#{triggerName,jdbcType=VARCHAR},
+			</if>
+			<if test="triggerGroupName != null">
+				#{triggerGroupName,jdbcType=VARCHAR},
+			</if>
+			<if test="className != null">
+				#{className,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				#{description,jdbcType=VARCHAR},
+			</if>
+			<if test="cronExpression != null">
+				#{cronExpression,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+			<if test="createAt != null">
+				#{createAt,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateAt != null">
+				#{updateAt,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				#{createBy,jdbcType=INTEGER},
+			</if>
+			<if test="updateBy != null">
+				#{updateBy,jdbcType=INTEGER},
+			</if>
+			<if test="isDelete != null">
+				#{isDelete,jdbcType=BIT},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.rongyi.platform.quartz.module.model.QzJob">
+		update qz_job
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="groupName != null">
+				group_name = #{groupName,jdbcType=VARCHAR},
+			</if>
+			<if test="triggerName != null">
+				trigger_name = #{triggerName,jdbcType=VARCHAR},
+			</if>
+			<if test="triggerGroupName != null">
+				trigger_group_name = #{triggerGroupName,jdbcType=VARCHAR},
+			</if>
+			<if test="className != null">
+				class_name = #{className,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				description = #{description,jdbcType=VARCHAR},
+			</if>
+			<if test="cronExpression != null">
+				cron_expression = #{cronExpression,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="createAt != null">
+				create_at = #{createAt,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateAt != null">
+				update_at = #{updateAt,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				create_by = #{createBy,jdbcType=INTEGER},
+			</if>
+			<if test="updateBy != null">
+				update_by = #{updateBy,jdbcType=INTEGER},
+			</if>
+			<if test="isDelete != null">
+				is_delete = #{isDelete,jdbcType=BIT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<select id="list" resultMap="BaseResultMap"
+		parameterType="com.rongyi.platform.quartz.module.dto.QzJobDto">
+		select
+		<include refid="Base_Column_List" />
+		from qz_job
+		where is_delete = 0
+	</select>
+	
+	<select id="find" resultMap="BaseResultMap"
+		parameterType="com.rongyi.platform.quartz.module.dto.QzJobDto">
+		select
+		<include refid="Base_Column_List" />
+		from qz_job
+		where id = #{id}
+	</select>
+</mapper>

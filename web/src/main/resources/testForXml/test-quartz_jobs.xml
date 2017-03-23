@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<quartz>
+	<job>
+		<job-detail>
+			<name>HiJob</name>
+			<group>defaut</group>
+			<description>
+				A job that scans a directory for files
+			</description>
+			<job-class>
+				com.rongyi.platform.quartz.job.HiJob
+			</job-class>
+			<volatility>false</volatility>
+			<durability>false</durability>
+			<recover>false</recover>
+		</job-detail>
+
+		<trigger>
+			<simple>
+				<name>scanTrigger</name>
+				<group>DEFAULT</group>
+				<job-name>ScanDirectory</job-name>
+				<job-group>DEFAULT</job-group>
+				<!-- repeat indefinitely every 10 seconds -->
+				<start-time>2017-03-22T23:43:10+08:00</start-time><!-- 北京时间需要+8:00 -->
+				<repeat-count>-1</repeat-count>
+				<repeat-interval>3000</repeat-interval>
+			</simple>
+		</trigger>
+	</job>
+</quartz>
