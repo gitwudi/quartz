@@ -15,7 +15,7 @@ import com.rongyi.platform.quartz.module.model.QzJob;
 
 public class QuartzRMIClient {
 
-	public void run() throws Exception {
+	public void start() throws Exception {
 
 		Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -64,6 +64,6 @@ public class QuartzRMIClient {
 
 	public static void main(String[] args) throws Exception {
 		QuartzRMIClient example = new QuartzRMIClient();
-		example.run();
+		example.start();
 	}
 }
