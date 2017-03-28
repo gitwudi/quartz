@@ -17,6 +17,15 @@
 	<!-- 扫描aspect注解 -->
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 
+	<bean name="quartzScheduler"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+<!-- 		<property name="applicationContextSchedulerContextKey" value="applicationContext" /> -->
+		<property name="configLocation" value="classpath:/config/client.properties" />
+	</bean>
+	
 	<!-- 注解说明 -->
 	<context:annotation-config />
 	<!-- spring mvc自动扫描 -->
@@ -33,10 +42,14 @@
 	<!-- 配置DataSource数据源 -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="${jdbc.driver}" />
-		<property name="url" value="${jdbc.url}" />
-		<property name="username" value="${jdbc.username}" />
-		<property name="password" value="${jdbc.password}" />
+<!-- 		<property name="driverClassName" value="${jdbc.driver}" /> -->
+<!-- 		<property name="url" value="${jdbc.url}" /> -->
+<!-- 		<property name="username" value="${jdbc.username}" /> -->
+<!-- 		<property name="password" value="${jdbc.password}" /> -->
+		<property name="driverClassName" value="${org.quartz.dataSource.wd.driver}" />
+		<property name="url" value="${org.quartz.dataSource.wd.URL}" />
+		<property name="username" value="${org.quartz.dataSource.wd.user}" />
+		<property name="password" value="${org.quartz.dataSource.wd.password}" />
 	</bean>
 
 	<!-- 配置SqlSessionFactoryBean -->

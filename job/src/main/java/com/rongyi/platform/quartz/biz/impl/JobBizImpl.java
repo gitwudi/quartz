@@ -37,8 +37,8 @@ public class JobBizImpl implements JobBiz {
 	public void add(QzJob qzJob) {
 		log.info("新增job - {}", qzJob);
 		try {
-			// Scheduler scheduler = schedulerFactoryBean.getScheduler();// 无需调用scheduler.start(),就能启动
-			Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();// 需要调用scheduler.start()才能启动
+			 Scheduler scheduler = schedulerFactoryBean.getScheduler();// 无需调用scheduler.start(),就能启动
+//			Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();// 需要调用scheduler.start()才能启动
 
 			TriggerKey triggerKey = TriggerKey.triggerKey(qzJob.getName(), qzJob.getGroupName());
 
@@ -49,7 +49,7 @@ public class JobBizImpl implements JobBiz {
 
 				JobDetail jobDetail = JobBuilder.newJob(clazz).withIdentity(qzJob.getName(), qzJob.getGroupName())
 						.build();
-				 jobDetail.getJobDataMap().put("haha", 1);// 启动定时器时传参
+				 jobDetail.getJobDataMap().put("haha", "1");// 启动定时器时传参
 
 				CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(qzJob.getCronExpression());
 				// trigger = TriggerBuilder.newTrigger().withIdentity(qzJob.getName(), qzJob.getGroupName())

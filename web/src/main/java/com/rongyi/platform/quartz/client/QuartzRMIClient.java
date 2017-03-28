@@ -48,7 +48,7 @@ public class QuartzRMIClient {
 
 		JobDetail jobDetail = JobBuilder.newJob(clazz).withIdentity(qzJob.getName(), qzJob.getGroupName())
 				.build();
-		 jobDetail.getJobDataMap().put("haha", 1);// 启动定时器时传参
+		 jobDetail.getJobDataMap().put("haha", "1");// 启动定时器时传参
 
 		CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(qzJob.getCronExpression());
 		// trigger = TriggerBuilder.newTrigger().withIdentity(qzJob.getName(), qzJob.getGroupName())

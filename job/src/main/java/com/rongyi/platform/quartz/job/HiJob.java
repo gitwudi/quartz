@@ -25,8 +25,9 @@ public class HiJob implements Job {
 		// while (iterator.hasNext()) {
 		// log.info("key : {}", jobDataMap.get(iterator.next()));
 		// }
-		Integer num = (Integer) (jobDataMap.get("haha"));
-		context.getJobDetail().getJobDataMap().put("haha", num + 1);
+		String str = jobDataMap.get("haha").toString();
+		Integer num = Integer.valueOf(str);
+		context.getJobDetail().getJobDataMap().put("haha", String.valueOf((num + 1)));
 
 		log.info("启动job - {} : before - {}, after - {}", "HiJob==========haha", num, context.getJobDetail().getJobDataMap().get("haha").toString());
 
