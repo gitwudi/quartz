@@ -42,14 +42,14 @@
 	<!-- 配置DataSource数据源 -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-<!-- 		<property name="driverClassName" value="${jdbc.driver}" /> -->
-<!-- 		<property name="url" value="${jdbc.url}" /> -->
-<!-- 		<property name="username" value="${jdbc.username}" /> -->
-<!-- 		<property name="password" value="${jdbc.password}" /> -->
-		<property name="driverClassName" value="${org.quartz.dataSource.wd.driver}" />
-		<property name="url" value="${org.quartz.dataSource.wd.URL}" />
-		<property name="username" value="${org.quartz.dataSource.wd.user}" />
-		<property name="password" value="${org.quartz.dataSource.wd.password}" />
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+<!-- 		<property name="driverClassName" value="${org.quartz.dataSource.wd.driver}" /> -->
+<!-- 		<property name="url" value="${org.quartz.dataSource.wd.URL}" /> -->
+<!-- 		<property name="username" value="${org.quartz.dataSource.wd.user}" /> -->
+<!-- 		<property name="password" value="${org.quartz.dataSource.wd.password}" /> -->
 	</bean>
 
 	<!-- 配置SqlSessionFactoryBean -->
@@ -72,10 +72,10 @@
 	</bean>
 
 	<!-- spring 扫描mapper -->
-<!-- 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"> -->
-<!-- 		<property name="basePackage" value="com.rongyi.platform.quartz.mapper" /> -->
-<!-- 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" /> -->
-<!-- 	</bean> -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.rongyi.platform.quartz.mapper" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
 
 	<!-- jdbc连接 -->
 	<bean id="txManager"

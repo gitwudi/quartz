@@ -24,6 +24,8 @@
 		</property>
 <!-- 		<property name="applicationContextSchedulerContextKey" value="applicationContext" /> -->
 		<property name="configLocation" value="classpath:/config/client.properties" />
+		 <!--必QuartzScheduler 延时启动，应用启动完后 QuartzScheduler 再启动,单位秒 -->    
+        <property name="startupDelay" value="1" />
 	</bean>
 	
 	<!-- 注解说明 -->

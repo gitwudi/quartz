@@ -7,23 +7,27 @@ import org.quartz.JobDetail;
 import org.quartz.Scheduler;
 import org.quartz.TriggerBuilder;
 import org.quartz.TriggerKey;
-import org.quartz.impl.StdSchedulerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.rongyi.platform.quartz.module.model.QzJob;
 
 public class QuartzRMIClient {
+
+	@Autowired
+	private Scheduler quartzScheduler;
 
 	public void start() throws Exception {
 
 		Logger log = LoggerFactory.getLogger(this.getClass());
 
 		// Use this properties file instead of quartz.properties
-		System.setProperty("org.quartz.properties", "config/client.properties");
+//		System.setProperty("org.quartz.properties", "config/client.properties");
 
 		// Get a reference to the remote scheduler
-		Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
+//		Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
+//		Scheduler scheduler = schedulerFactoryBean.getScheduler();
 
 		// Define the job to add
 //		JobDetail job = new JobDetail("remotelyAddedJob", "default", SimpleJob.class);
@@ -42,7 +46,7 @@ public class QuartzRMIClient {
 		
 		TriggerKey triggerKey = TriggerKey.triggerKey(qzJob.getName(), qzJob.getGroupName());
 
-		CronTrigger trigger = (CronTrigger) scheduler.getTrigger(triggerKey);
+		CronTrigger trigger = (CronTrigger) quartzScheduler.getTrigger(triggerKey);
 		
 		Class clazz = Class.forName(qzJob.getClassName());
 
@@ -57,7 +61,7 @@ public class QuartzRMIClient {
 		trigger = TriggerBuilder.newTrigger().withIdentity(qzJob.getName(), qzJob.getGroupName())
 				.withSchedule(scheduleBuilder.withMisfireHandlingInstructionDoNothing()).build();// 启动会在下次触发时执行
 		// schedule the remote job
-		scheduler.scheduleJob(jobDetail, trigger);
+		quartzScheduler.scheduleJob(jobDetail, trigger);
 
 		log.info("Remote job scheduled.");
 	}
@@ -66,4 +70,5 @@ public class QuartzRMIClient {
 		QuartzRMIClient example = new QuartzRMIClient();
 		example.start();
 	}
+
 }

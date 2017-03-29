@@ -12,10 +12,10 @@ public class LoadJob {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-	@Autowired
-	private QzJobBiz qzJobBiz;
-	@Autowired
-	private JobService jobService;
+//	@Autowired
+//	private QzJobBiz qzJobBiz;
+//	@Autowired
+//	private JobService jobService;
 
 	public void init() throws SchedulerException {
 		// 可执行的任务列表

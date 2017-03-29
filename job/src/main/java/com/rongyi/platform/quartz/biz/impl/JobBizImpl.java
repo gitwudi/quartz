@@ -27,8 +27,8 @@ public class JobBizImpl implements JobBiz {
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 
-	@Autowired
-	private SchedulerFactoryBean schedulerFactoryBean;
+	// @Autowired
+	// private SchedulerFactoryBean schedulerFactoryBean;
 
 	/**
 	 * @see com.rongyi.platform.quartz.biz.JobBiz#add(com.rongyi.platform.quartz.module.model.QzJob)
@@ -37,8 +37,9 @@ public class JobBizImpl implements JobBiz {
 	public void add(QzJob qzJob) {
 		log.info("新增job - {}", qzJob);
 		try {
-			 Scheduler scheduler = schedulerFactoryBean.getScheduler();// 无需调用scheduler.start(),就能启动
-//			Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();// 需要调用scheduler.start()才能启动
+			 Scheduler scheduler = null;
+			// Scheduler scheduler = schedulerFactoryBean.getScheduler();// 无需调用scheduler.start(),就能启动
+			// Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();// 需要调用scheduler.start()才能启动
 
 			TriggerKey triggerKey = TriggerKey.triggerKey(qzJob.getName(), qzJob.getGroupName());
 
@@ -49,25 +50,26 @@ public class JobBizImpl implements JobBiz {
 
 				JobDetail jobDetail = JobBuilder.newJob(clazz).withIdentity(qzJob.getName(), qzJob.getGroupName())
 						.build();
-				 jobDetail.getJobDataMap().put("haha", "1");// 启动定时器时传参
+				jobDetail.getJobDataMap().put("haha", "1");// 启动定时器时传参
 
 				CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(qzJob.getCronExpression());
 				// trigger = TriggerBuilder.newTrigger().withIdentity(qzJob.getName(), qzJob.getGroupName())
 				// .withSchedule(scheduleBuilder).build();// 启动会立即执行
-				
+
 				trigger = TriggerBuilder.newTrigger().withIdentity(qzJob.getName(), qzJob.getGroupName())
 						.withSchedule(scheduleBuilder.withMisfireHandlingInstructionDoNothing()).build();// 启动会在下次触发时执行
-				
+
 				// 修改默认calendarName
-//				trigger = TriggerBuilder.newTrigger().withIdentity(qzJob.getName(), qzJob.getGroupName()).modifiedByCalendar("testCal")
-//						.withSchedule(scheduleBuilder.withMisfireHandlingInstructionDoNothing()).build();
+				// trigger = TriggerBuilder.newTrigger().withIdentity(qzJob.getName(),
+				// qzJob.getGroupName()).modifiedByCalendar("testCal")
+				// .withSchedule(scheduleBuilder.withMisfireHandlingInstructionDoNothing()).build();
 
 				// 今天不执行定时器
-//				Calendar cal = Calendar.getInstance();
-//				AnnualCalendar ac = new AnnualCalendar();
-//				ac.setDayExcluded(cal, true);
-//				scheduler.addCalendar("testCal", ac, true, true);
-				
+				// Calendar cal = Calendar.getInstance();
+				// AnnualCalendar ac = new AnnualCalendar();
+				// ac.setDayExcluded(cal, true);
+				// scheduler.addCalendar("testCal", ac, true, true);
+
 				scheduler.scheduleJob(jobDetail, trigger);
 
 				scheduler.start();
@@ -89,7 +91,8 @@ public class JobBizImpl implements JobBiz {
 	 * @see com.rongyi.platform.quartz.biz.JobBiz#pause(com.rongyi.platform.quartz.module.model.QzJob)
 	 */
 	public void pause(QzJob qzJob) {
-		Scheduler scheduler = schedulerFactoryBean.getScheduler();
+		Scheduler scheduler = null;
+//		Scheduler scheduler = schedulerFactoryBean.getScheduler();
 		JobKey jobKey = JobKey.jobKey(qzJob.getName(), qzJob.getGroupName());
 		try {
 			scheduler.pauseJob(jobKey);
@@ -102,7 +105,8 @@ public class JobBizImpl implements JobBiz {
 	 * @see com.rongyi.platform.quartz.biz.JobBiz#delete(com.rongyi.platform.quartz.module.model.QzJob)
 	 */
 	public void delete(QzJob qzJob) {
-		Scheduler scheduler = schedulerFactoryBean.getScheduler();
+		Scheduler scheduler = null;
+//		Scheduler scheduler = schedulerFactoryBean.getScheduler();
 		JobKey jobKey = JobKey.jobKey(qzJob.getName(), qzJob.getGroupName());
 		try {
 			scheduler.deleteJob(jobKey);
@@ -115,7 +119,8 @@ public class JobBizImpl implements JobBiz {
 	 * @see com.rongyi.platform.quartz.biz.JobBiz#resume(com.rongyi.platform.quartz.module.model.QzJob)
 	 */
 	public void resume(QzJob qzJob) {
-		Scheduler scheduler = schedulerFactoryBean.getScheduler();
+		Scheduler scheduler = null;
+//		Scheduler scheduler = schedulerFactoryBean.getScheduler();
 		JobKey jobKey = JobKey.jobKey(qzJob.getName(), qzJob.getGroupName());
 		try {
 			TriggerKey triggerKey = TriggerKey.triggerKey(qzJob.getName(), qzJob.getGroupName());
