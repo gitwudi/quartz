@@ -124,6 +124,4 @@
 		<property name="maxInMemorySize" value="40960" />
 	</bean>
 
-	<bean id="loadJob" class="com.rongyi.platform.quartz.init.LoadJob"
-		init-method="init"></bean>
 </beans>

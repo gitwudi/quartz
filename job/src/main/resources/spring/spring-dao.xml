@@ -17,13 +17,24 @@
 	<!-- 扫描aspect注解 -->
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 
-	<bean name="quartzScheduler"
+	<bean name="schedulerBean"
 		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="dataSource">
 			<ref bean="dataSource" />
 		</property>
-<!-- 		<property name="applicationContextSchedulerContextKey" value="applicationContext" /> -->
-		<property name="configLocation" value="classpath:/config/server.properties" />
+		<property name="applicationContextSchedulerContextKey" value="applicationContext" />
+		<property name="configLocation" value="classpath:config/server.properties" />
+		<!--必QuartzScheduler 延时启动，应用启动完后 QuartzScheduler 再启动,单位秒 -->
+		<property name="startupDelay" value="10" />
+		<!-- 设置自动启动 -->
+		<property name="autoStartup" value="true" />
+	</bean>
+
+	<bean id="loadJob" class="com.rongyi.platform.quartz.init.LoadJob"
+		init-method="init">
+		<property name="scheduler">
+			<ref bean="schedulerBean"></ref>
+		</property>
 	</bean>
 
 	<!-- 注解说明 -->
@@ -46,20 +57,23 @@
 		<property name="url" value="${jdbc.url}" />
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
-<!-- 		<property name="driverClassName" value="${org.quartz.dataSource.wd.driver}" /> -->
-<!-- 		<property name="url" value="${org.quartz.dataSource.wd.URL}" /> -->
-<!-- 		<property name="username" value="${org.quartz.dataSource.wd.user}" /> -->
-<!-- 		<property name="password" value="${org.quartz.dataSource.wd.password}" /> -->
+		<!-- <property name="driverClassName" value="${org.quartz.dataSource.wd.driver}" 
+			/> -->
+		<!-- <property name="url" value="${org.quartz.dataSource.wd.URL}" /> -->
+		<!-- <property name="username" value="${org.quartz.dataSource.wd.user}" 
+			/> -->
+		<!-- <property name="password" value="${org.quartz.dataSource.wd.password}" 
+			/> -->
 	</bean>
 
 	<!-- 配置SqlSessionFactoryBean -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-<!-- 		<property name="configLocation" value="classpath:mybatis.xml" /> -->
-<!-- 		mapper和resultmap配置路径 -->
+		<!-- <property name="configLocation" value="classpath:mybatis.xml" /> -->
+		<!-- mapper和resultmap配置路径 -->
 		<property name="mapperLocations">
 			<list>
-<!-- 				表示在com.md.homeParty.mapper包或以下所有目录中，以Mapper.xml结尾所有文件 -->
+				<!-- 表示在com.md.homeParty.mapper包或以下所有目录中，以Mapper.xml结尾所有文件 -->
 				<value>classpath:com/rongyi/platform/quartz/mapper/**/*Mapper.xml
 				</value>
 			</list>

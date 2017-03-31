@@ -17,15 +17,24 @@
 	<!-- 扫描aspect注解 -->
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 
-	<bean name="quartzScheduler"
+	<bean name="schedulerBean"
 		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="dataSource">
 			<ref bean="dataSource" />
 		</property>
 <!-- 		<property name="applicationContextSchedulerContextKey" value="applicationContext" /> -->
-		<property name="configLocation" value="classpath:/config/client.properties" />
-		 <!--必QuartzScheduler 延时启动，应用启动完后 QuartzScheduler 再启动,单位秒 -->    
-        <property name="startupDelay" value="1" />
+		<property name="configLocation" value="classpath:config/client.properties" />
+		<property name="startupDelay" value="10" />
+		<!-- 设置自动启动 -->
+		<property name="autoStartup" value="true" />
+	</bean>
+	
+	<!-- 封装调度服务 -->  
+	<bean id="quartzRMIClient" class="com.rongyi.platform.quartz.client.QuartzRMIClient"
+		init-method="start">
+		<property name="scheduler">
+			<ref bean="schedulerBean"></ref>
+		</property>
 	</bean>
 	
 	<!-- 注解说明 -->
@@ -44,14 +53,14 @@
 	<!-- 配置DataSource数据源 -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-<!-- 		<property name="driverClassName" value="${jdbc.driver}" /> -->
-<!-- 		<property name="url" value="${jdbc.url}" /> -->
-<!-- 		<property name="username" value="${jdbc.username}" /> -->
-<!-- 		<property name="password" value="${jdbc.password}" /> -->
-		<property name="driverClassName" value="${org.quartz.dataSource.wd.driver}" />
-		<property name="url" value="${org.quartz.dataSource.wd.URL}" />
-		<property name="username" value="${org.quartz.dataSource.wd.user}" />
-		<property name="password" value="${org.quartz.dataSource.wd.password}" />
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+<!-- 		<property name="driverClassName" value="${org.quartz.dataSource.wd.driver}" /> -->
+<!-- 		<property name="url" value="${org.quartz.dataSource.wd.URL}" /> -->
+<!-- 		<property name="username" value="${org.quartz.dataSource.wd.user}" /> -->
+<!-- 		<property name="password" value="${org.quartz.dataSource.wd.password}" /> -->
 	</bean>
 
 	<!-- 配置SqlSessionFactoryBean -->
