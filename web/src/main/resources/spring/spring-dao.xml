@@ -19,13 +19,12 @@
 
 	<bean name="schedulerBean"
 		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-		<property name="dataSource">
-			<ref bean="dataSource" />
-		</property>
-<!-- 		<property name="applicationContextSchedulerContextKey" value="applicationContext" /> -->
-		<property name="configLocation" value="classpath:config/client.properties" />
+<!-- 		<property name="dataSource"> -->
+<!-- 			<ref bean="dataSource" /> -->
+<!-- 		</property> -->
+<!-- 		<property name="configLocation" value="classpath:config/client.properties" /> -->
 		<property name="startupDelay" value="10" />
-		<!-- 设置自动启动 -->
+<!-- 		设置自动启动 -->
 		<property name="autoStartup" value="true" />
 	</bean>
 	
